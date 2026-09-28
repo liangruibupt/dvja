@@ -1,0 +1,23 @@
+# Dependabot configuration for DVJA (Damn Vulnerable Java Application)
+#
+# DVJA is a DELIBERATELY VULNERABLE security-training target. Several
+# dependencies are pinned to old, known-vulnerable versions ON PURPOSE so the
+# app can demonstrate classic CVEs (e.g. Struts2 S2-045, Log4Shell, legacy
+# Hibernate injection). Upgrading them would remove the very vulnerabilities
+# the app exists to teach - and the major-version jumps do not compile against
+# this codebase.
+#
+# We therefore keep Dependabot enabled but IGNORE the intentionally-vulnerable
+# teaching deps so it stops reopening upgrade PRs against them.
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # --- intentionally-vulnerable teaching dependencies: never upgrade ---
+      - dependency-name: "org.apache.struts:struts2-core"
+      - dependency-name: "org.apache.logging.log4j:log4j-core"
+      - dependency-name: "org.hibernate:hibernate-core"
+    open-pull-requests-limit: 0
